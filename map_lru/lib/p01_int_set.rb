@@ -2,7 +2,7 @@ class MaxIntSet
   attr_reader :store
   def initialize(max)
     @max = max
-    @store = Array.new(max) { Array.new }
+    @store = Array.new(max, false)
   end
 
   def insert(num)
@@ -14,31 +14,14 @@ class MaxIntSet
   end
 
   def remove(num)
-    @store.each do |bucket|
-      bucket.delete(num) if bucket.include?(num)
-    end
+    @store[num] = false
   end
 
   def include?(num)
-    @store.each do |bucket|
-      return true if bucket.include?(num)
-    end
-    false
+    @store[num]
   end
-
-
 
   private
-
-  
-  def [](num)
-    # optional but useful; return the bucket corresponding to `num`
-    @store.each_with_index do |bucket, i|
-      return i if bucket.include?(num)
-    end
-    false
-  end
-
 
   def is_valid?(num)
     if num <= @max && num >= 0
@@ -48,8 +31,6 @@ class MaxIntSet
     end
   end
 
-  def validate!(num)
-  end
 end
 
 
@@ -59,6 +40,7 @@ class IntSet
   end
 
   def insert(num)
+
   end
 
   def remove(num)
@@ -75,6 +57,7 @@ class IntSet
 
   def [](num)
     # optional but useful; return the bucket corresponding to `num`
+    return @store[num % num_buckets]
   end
 
   def num_buckets
