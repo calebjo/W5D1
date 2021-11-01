@@ -1,10 +1,19 @@
 module Searchable
 
-    def bfs(root, target)
-        queue = [root]
+    def dfs(target)
+        return self if self.value == target
+        children.each do |child|
+            result = child.dfs(target)
+            return result if !result.nil?
+        end
+        nil
+    end
+
+    def bfs(target)
+        queue = [self]
         until queue.empty?
             this_node = queue.shift
-            return this_node.value if this_node.value == target
+            return this_node if this_node.value == target
             this_node.children.each { |child| queue << child }
         end
         nil
