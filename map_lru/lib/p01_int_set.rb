@@ -1,8 +1,15 @@
 class MaxIntSet
   def initialize(max)
+    @max = max
+    @store = []
   end
 
   def insert(num)
+    if is_valid?(num)
+      @store << num
+    else
+      raise 'Out of bounds'
+    end
   end
 
   def remove(num)
@@ -14,6 +21,11 @@ class MaxIntSet
   private
 
   def is_valid?(num)
+    if num <= @max && num >= 0
+      return true
+    else
+      return false
+    end
   end
 
   def validate!(num)
