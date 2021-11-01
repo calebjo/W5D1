@@ -4,6 +4,7 @@ end
 
 class Array
   def hash
+    prc = Proc.new {|k, v| self << [k, v] }
   end
 end
 
